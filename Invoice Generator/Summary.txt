@@ -1,0 +1,29 @@
+📌 Problem Statement: Invoice Generator
+
+We want to design a system that can generate invoices for customer purchases in a shop/e-commerce setting.
+
+🎯 Requirements:
+	1.	An Invoice should contain:
+        •	Customer details (name, ID, address).
+        •	List of purchased items (each with name, quantity, price).
+        •	Total cost (with taxes applied).
+	2.	The system should:
+        •	Calculate the total amount.
+        •	Apply different types of tax calculations (e.g., GST, VAT, Service Tax).
+        •	Support different output formats for invoices (e.g., PDF, Excel, Print, Email).
+	3.	Extendability:
+        •	Tomorrow, if a new tax system is introduced, we should be able to add it without modifying existing classes (OCP).
+        •	If a new output format (say JSON export) is added, it should not break the existing design.
+	4.	Responsibilities must be separated:
+    	•	Invoice data handling should not be mixed with tax calculation or saving/exporting. (SRP).
+
+
+
+Solution 
+Models : 
+- Customers (name, ID and address)
+- Item (name, Quantity, Price)
+
+Src : 
+    Services : 
+        - CalculationService
