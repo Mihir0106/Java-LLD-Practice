@@ -5,7 +5,7 @@ import SOLIDPrinciplesPractice.LSP.ShapesAreaCalculator;
 
 public class circle extends ShapesAreaCalculator {
 
-    private double radius;
+    private double radius = 2f;
     
     @Override
     public double CalculateArea() {
