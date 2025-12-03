@@ -1,20 +1,22 @@
 package JavaPractice;
 
-import DriveStrategy.SpecialDrive;
-import JavaPractice.helloworld.handyClass;
-import SOLIDPrinciplesPractice.LSP.ShapesAreaCalculator;
-import SOLIDPrinciplesPractice.LSP.shapes.circle;
-import StrategyPattern.src.Vehicle.*;
+
+import ObserverDesignPattern.Weather.Observable.Observable;
+import ObserverDesignPattern.Weather.Observable.WeatherObservableImpl;
+import ObserverDesignPattern.Weather.Observer.EmailAlertObserver;
+import ObserverDesignPattern.Weather.Observer.Observer;
 
 public class practice {
     public static void main(String[] args){
-//        handyClass.helloWorld();
-       // circle
-        StrategyPattern.src.Vehicle.Vehicle vehicle = new SportsVehicle();
-        vehicle.drive();
 
+        // Declare Observable
+        Observable observable = new WeatherObservableImpl();
 
-        StrategyPattern.src.Vehicle.Vehicle vehicle2 = new PassengerVehicle();
-        vehicle2.drive();
+        // declare Observer
+        EmailAlertObserver observer = new EmailAlertObserver(observable,"mjmihir@gmail.com");
+
+        observable.add(observer);
+        observable.setData(observable.getData() + 4);
+
     }
 }
