@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GameBoard {
-    public PlayingPiece[][] board;
+    PlayingPiece[][] board;
     int size;
 
     public GameBoard(int size){
