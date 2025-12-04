@@ -1,4 +1,7 @@
 package JavaPractice.TicTacToe.PieceTypes;
 
-public class PlayingPieceY {
+public class PlayingPieceO extends PlayingPiece{
+    public PlayingPieceO() {
+        super(PieceType.O);
+    }
 }

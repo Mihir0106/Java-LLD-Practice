@@ -1,4 +1,4 @@
-package JavaPractice.TicTacToe;
+package JavaPractice.TicTacToe.PieceTypes;
 
 public enum PieceType {
     X,
