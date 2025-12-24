@@ -11,12 +11,11 @@ import java.util.Queue;
 
 public class NormalParkingStrategy implements IParkingStrategy {
 
-
     @Override
     public Boolean isParkingAvailable(List<LevelManager> levelManagerList, Vehicle vehicle) {
-        for(LevelManager level : levelManagerList){
+        for (LevelManager level : levelManagerList) {
             Queue<ParkingSpot> available = level.getParkingSpotList(vehicle);
-            if(!available.isEmpty()){
+            if (!available.isEmpty()) {
                 return true;
             }
         }
@@ -24,16 +23,13 @@ public class NormalParkingStrategy implements IParkingStrategy {
     }
 
     @Override
-    public ParkingSpot parkVehicle(List<LevelManager> levelManagerList,Vehicle vehicle) {
-        for(LevelManager level : levelManagerList){
+    public ParkingSpot parkVehicle(List<LevelManager> levelManagerList, Vehicle vehicle) {
+        for (LevelManager level : levelManagerList) {
             Queue<ParkingSpot> available = level.getParkingSpotList(vehicle);
-            if(!available.isEmpty()){
-                return available.poll();
-            }
+            ParkingSpot spot = available.poll();
+            if(spot != null) return spot;
         }
         return null;
     }
-
-
 
 }
