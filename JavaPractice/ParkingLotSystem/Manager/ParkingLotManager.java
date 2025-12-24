@@ -5,6 +5,7 @@ import JavaPractice.ParkingLotSystem.Entity.Vehicle;
 import JavaPractice.ParkingLotSystem.Interfaces.IParkingStrategy;
 
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class ParkingLotManager {
     IParkingStrategy parkingStrategy;
@@ -16,7 +17,7 @@ public class ParkingLotManager {
         this.parkingStrategy = parkingStrategy;
 
         levelManagerList = new LinkedList<>();
-        occupiedSpot = new HashMap<>();
+        occupiedSpot = new ConcurrentHashMap<>();
     }
 
     public void addLevel(LevelManager levelManager){
