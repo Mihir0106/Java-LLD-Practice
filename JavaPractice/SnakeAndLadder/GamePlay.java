@@ -15,12 +15,12 @@ public class GamePlay {
     Queue<Player> players;
     GameBoard gameBoard;
     Dice dice;
-    Map<Integer,Integer> playersStatus;
+    Map<Integer, Integer> playersStatus;
     GamePlayStates gamePlayState;
 
-    public GamePlay(GameBoard board, List<Player> playerList){
+    public GamePlay(GameBoard board, List<Player> playerList) {
         this.gameBoard = board;
-        this.dice = dice;
+        this.dice = new Dice(1, 6);
         this.players = new LinkedList<>();
         playersStatus = new HashMap<>();
         PlayersTurnSetup(playerList);
@@ -32,28 +32,46 @@ public class GamePlay {
         return gamePlayState;
     }
 
-    public void PlayersTurnSetup(List<Player> playerList){
-        for(Player player : playerList){
+    public void PlayersTurnSetup(List<Player> playerList) {
+        for (Player player : playerList) {
             players.offer(player);
             // initialPosition
-            playersStatus.put(player.getUserId(),0);
+            playersStatus.put(player.getUserId(), 0);
         }
     }
 
-    public void StartGame(){
+    public void StartGame() {
         gamePlayState = GamePlayStates.InProgress;
-        while(!winCondition()){
-            // WriteGame Play
-            playersStatus.put(1, playersStatus.get(1) + 10);
+        while (gamePlayState == GamePlayStates.InProgress) {
+            Player currentPlayer = players.poll();
+            int currentPosition = playersStatus.get(currentPlayer.getUserId());
+            int diceValue = dice.rollDice();
+            int nextPosition = currentPosition + diceValue;
 
-            System.out.println("Game is running and current pos for 1st player is " + playersStatus.get(1));
+            if (nextPosition > gameBoard.board.WinningPoint()) {
+                players.offer(currentPlayer);
+                continue;
+            }
+
+            nextPosition = gameBoard.getNextPosition(nextPosition);
+            playersStatus.put(currentPlayer.getUserId(), nextPosition);
+
+            System.out.println(
+                    "Player " + currentPlayer.getUsrName() + " rolled " + diceValue + " and moved to " + nextPosition);
+
+            if (nextPosition == gameBoard.board.WinningPoint()) {
+                gamePlayState = GamePlayStates.Completed;
+                System.out.println("Player " + currentPlayer.getUsrName() + " Has Won the Game!");
+                return;
+            }
+
+            players.offer(currentPlayer);
         }
     }
 
-
-    boolean winCondition(){
-        for (Map.Entry<Integer,Integer> player : playersStatus.entrySet()){
-            if(player.getValue() == gameBoard.board.WinningPoint()){
+    boolean winCondition() {
+        for (Map.Entry<Integer, Integer> player : playersStatus.entrySet()) {
+            if (player.getValue() == gameBoard.board.WinningPoint()) {
                 gamePlayState = GamePlayStates.Completed;
                 return true;
             }

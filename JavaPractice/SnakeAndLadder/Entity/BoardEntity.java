@@ -7,14 +7,18 @@ public class BoardEntity {
     int end;
     BoardEntityType type;
 
-    public BoardEntity(int start, int end){
+    public BoardEntity(int start, int end) {
         this.start = start;
         this.end = end;
         type = (start > end) ? BoardEntityType.Snake : BoardEntityType.Ladder;
     }
 
-    public int getStart(){
+    public int getStart() {
         return start;
+    }
+
+    public int getEnd() {
+        return end;
     }
 
 }
