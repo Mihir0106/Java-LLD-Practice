@@ -24,7 +24,7 @@ public class PaymentHandlerManager implements ICollectMoney {
 
 
     @Override
-    public void AddCurrencyTypeQuantity(Currency currency, int count) {
+    public synchronized void AddCurrencyTypeQuantity(Currency currency, int count) {
         BalanceStatus.put(currency, BalanceStatus.getOrDefault(currency,0) + count);
     }
 

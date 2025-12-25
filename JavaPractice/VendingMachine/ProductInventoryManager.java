@@ -25,11 +25,11 @@ public class ProductInventoryManager implements IRestocking {
         }
     }
 
-    public Product dispenseProduct(long productId,int quantity){
+    public synchronized void dispenseProduct(long productId, int quantity){
         Product product = getProduct(productId);
         if(product.getQuantity() >= quantity){
             product.UpdateQuantity(-quantity);
-            return product;
+            return;
         }
         throw new NoSuchElementException();
     }
@@ -37,7 +37,7 @@ public class ProductInventoryManager implements IRestocking {
     long id = 0;
 
     @Override
-    public void addNewProduct(String name, int price, int quantity) {
+    public synchronized void addNewProduct(String name, int price, int quantity) {
         long productid = ++id;
         Product product = new Product(name,productid,price,quantity);
         productMap.put(productid,product);
@@ -45,7 +45,7 @@ public class ProductInventoryManager implements IRestocking {
     }
 
     @Override
-    public void UpdateQuantity(long productId,int price, int quantity) {
+    public synchronized void UpdateQuantity(long productId,int price, int quantity) {
         productMap.get(productId).UpdateQuantity(quantity);
     }
 }
